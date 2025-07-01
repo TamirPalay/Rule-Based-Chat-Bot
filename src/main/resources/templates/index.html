@@ -1,0 +1,71 @@
+<!-- TODO 10:
+I have a chatbot interface layout, and I would like to create it as a
+Thymeleaf template for my Spring Boot application. The layout includes the following elements:
+
+Header:
+ A title at the top, "AJSD Chatbot."
+
+Left Panel:
+    A scrollable section labeled "Our conversation" that shows messages exchanged
+    between the chatbot and the user.
+    Each message should be styled distinctly (e.g., "Chatbot says" and "You requested").
+    Only this section should scroll, on overflow. Max height is 350px
+
+Right Panel:
+    A section titled "About AJSD Chatbot" with descriptive text about the chatbot,
+    including instructions for interacting with it like display :
+     "1. type 'teach' to begin
+     2. type 'clear' to reset
+     3.  type 'another country name or put a space after the country name' when
+         'a valid country name is not understood'.
+     4. try using the rest or use the term 'teach' to try from beginning
+    "
+
+Bottom Panel:
+    An input field where the user can type their query or response to the chatbot.
+    A button labeled "Ask Chatbot" to send the query.
+
+Footer:
+    A disclaimer text at the bottom stating: "By using this chatbot,
+    you indemnify the creators from all legal action. Please remember that AJSD Chatbot can make mistakes."
+
+The color scheme includes a light background with a slightly darker panel on the left and right
+for visual distinction.
+
+Please generate a Thymeleaf template here (index.html) for this layout,
+including the appropriate CSS for styling.
+
+Ensure the left panel is scrollable,
+and the input field and button are placed at the bottom.
+
+Here's what I need for functionality:
+
+Conversation Flow:
+    The user's input string should be sent to a REST API (/chat) when they click the "Ask Chatbot" button.
+    The server should process the input and update the ConversationContext object stored in the session.
+    The updated conversation context (including chatbot responses) should be dynamically
+    displayed in the "Our conversation" section without refreshing the page.
+    Replace "\n" with new lines.
+
+Requirements:
+    Use Thymeleaf for initial template rendering.
+    Use JavaScript (preferably fetch or Axios) for submitting user input asynchronously (AJAX).
+    Bind the updated conversation context returned by the REST API to the Thymeleaf template dynamically,
+    updating the conversation in real-time.
+
+Specific Features:
+    When a user enters text and clicks the "Ask Chatbot" button:
+    Send the input string to the /chat endpoint as a POST request.
+    The server should return the updated conversation (chatbot's response and user’s input).
+    Update the "Our conversation" panel in real-time.
+    Clear the input field after submission.
+
+Example Flow:
+    User enters "What is the capital of France?" and clicks "Ask Chatbot."
+    The input is sent to /chat.
+    The server responds with the chatbot's reply: "The capital of France is Paris."
+    The conversation panel is updated dynamically
+
+    Please provide the Thymeleaf template and JavaScript code needed for this integration
+    with the "/chat" endpoint.
+-->
