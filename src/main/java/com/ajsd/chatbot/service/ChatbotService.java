@@ -20,6 +20,9 @@ public class ChatbotService {
      *        and return the result. It should have the same name as that in the
      *        CountryLoader class
      **/
+    public String getCountryProperty(String country, String property) {
+        return countryDataLoader.getCountryProperty(country, property);
+    }
 
 
 
@@ -41,7 +44,7 @@ public class ChatbotService {
      *          and return the result.
      */
 
-    /*
+
     public String getCapital(String country) {
         return countryDataLoader.getCountryProperty(country, "capital");
     }
@@ -54,6 +57,6 @@ public class ChatbotService {
         return countryDataLoader.getCountryProperty(country, "nationalFlower");
     }
 
-    */
+
 
 }
