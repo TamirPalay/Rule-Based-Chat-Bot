@@ -10,6 +10,13 @@ A fun little personal project where I created a Spring Boot rule-based chatbot t
 
 -will provide a web-based interface for the user to interact with the rule-based chatbot engine via any modern desktop browser.
 
+
+
+To run the chatbot:
+download the files and run ChatbotApplication.java
+go to http://localhost:8080/ and start interacting with the chat bot!
+
+
 The starter code is arranged as follows:
 
 The core or base package is com.ajsd.chatbot.
