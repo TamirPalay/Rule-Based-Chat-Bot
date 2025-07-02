@@ -20,6 +20,9 @@ public class CountryInfo {
          *  Ensure that the values of nationalAnimal and nationalFlower are set to "Unknown", if nothing
          *  is passed or the values passed is null.
          */
+        this.capital = capital;
+        this.nationalAnimal = nationalAnimal != null ? nationalAnimal : "Unknown";
+        this.nationalFlower = nationalFlower != null ? nationalFlower : "Unknown";
     }
 
 

@@ -87,6 +87,23 @@ public class CountryDataLoader {
      *          If the country is not found, it should return "Country not found".
      *          If the property is not found, it should return "Invalid property".
      **/
+    public String getCountryProperty(String country, String property) {
+        CountryInfo countryInfo = countryData.get(country.toLowerCase());
+        if (countryInfo == null) {
+            return "Country not found";
+        }
+        switch (property) {
+            case "capital":
+                return countryInfo.getCapital();
+            case "nationalAnimal":
+                return countryInfo.getNationalAnimal();
+            case "nationalFlower":
+                return countryInfo.getNationalFlower();
+            default:
+                return "Invalid property";
+        }
+    }
+
 
 
 
@@ -95,6 +112,9 @@ public class CountryDataLoader {
      *          The method should be named listAllCountries() and return the array.
      *          The array should be created using the keySet() method of the HashMap.
      **/
+    public String[] listAllCountries() {
+        return countryData.keySet().toArray(new String[0]);
+    }
 
 
     /** TODO 4: Create a method to create an array of String objects with each country in the
@@ -105,6 +125,9 @@ public class CountryDataLoader {
      *          The method should use the stream() method of the HashMap to filter the countries
      *          and return the array.
      **/
+    public String[] listCountriesWhichStartsWith(String startsWith) {
+        return countryData.keySet().stream().filter(country -> country.toLowerCase().startsWith(startsWith.toLowerCase())).toArray(String[]::new);
+    }
 
 
     /** TODO 5: Create a method to create an array of String objects with each country in the
@@ -115,6 +138,9 @@ public class CountryDataLoader {
      *          The method should use the stream() method of the HashMap to filter the countries
      *          and return the array.
      **/
+    public String[] listCountriesWhichEndsWith(String endsWith) {
+        return countryData.keySet().stream().filter(country -> country.toLowerCase().endsWith(endsWith.toLowerCase())).toArray(String[]::new);
+    }
 
 
 
