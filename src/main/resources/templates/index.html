@@ -1,71 +1,199 @@
-<!-- TODO 10:
-I have a chatbot interface layout, and I would like to create it as a
-Thymeleaf template for my Spring Boot application. The layout includes the following elements:
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJSD Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
 
-Header:
- A title at the top, "AJSD Chatbot."
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-Left Panel:
-    A scrollable section labeled "Our conversation" that shows messages exchanged
-    between the chatbot and the user.
-    Each message should be styled distinctly (e.g., "Chatbot says" and "You requested").
-    Only this section should scroll, on overflow. Max height is 350px
+        .main-content {
+            display: flex;
+            gap: 20px;
+            flex: 1;
+            margin-bottom: 20px;
+        }
 
-Right Panel:
-    A section titled "About AJSD Chatbot" with descriptive text about the chatbot,
-    including instructions for interacting with it like display :
-     "1. type 'teach' to begin
-     2. type 'clear' to reset
-     3.  type 'another country name or put a space after the country name' when
-         'a valid country name is not understood'.
-     4. try using the rest or use the term 'teach' to try from beginning
-    "
+        .left-panel {
+            flex: 1;
+            background-color: #e8e8e8;
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-Bottom Panel:
-    An input field where the user can type their query or response to the chatbot.
-    A button labeled "Ask Chatbot" to send the query.
+        .conversation-area {
+            height: 350px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: white;
+            border-radius: 4px;
+        }
 
-Footer:
-    A disclaimer text at the bottom stating: "By using this chatbot,
-    you indemnify the creators from all legal action. Please remember that AJSD Chatbot can make mistakes."
+        .right-panel {
+            flex: 1;
+            background-color: #e8e8e8;
+            padding: 20px;
+            border-radius: 8px;
+        }
 
-The color scheme includes a light background with a slightly darker panel on the left and right
-for visual distinction.
+        .message {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+        }
 
-Please generate a Thymeleaf template here (index.html) for this layout,
-including the appropriate CSS for styling.
+        .bot-message {
+            background-color: #e3f2fd;
+        }
 
-Ensure the left panel is scrollable,
-and the input field and button are placed at the bottom.
+        .user-message {
+            background-color: #f5f5f5;
+            text-align: right;
+        }
 
-Here's what I need for functionality:
+        .input-area {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
 
-Conversation Flow:
-    The user's input string should be sent to a REST API (/chat) when they click the "Ask Chatbot" button.
-    The server should process the input and update the ConversationContext object stored in the session.
-    The updated conversation context (including chatbot responses) should be dynamically
-    displayed in the "Our conversation" section without refreshing the page.
-    Replace "\n" with new lines.
+        #userInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
 
-Requirements:
-    Use Thymeleaf for initial template rendering.
-    Use JavaScript (preferably fetch or Axios) for submitting user input asynchronously (AJAX).
-    Bind the updated conversation context returned by the REST API to the Thymeleaf template dynamically,
-    updating the conversation in real-time.
+        #sendButton {
+            padding: 10px 20px;
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
 
-Specific Features:
-    When a user enters text and clicks the "Ask Chatbot" button:
-    Send the input string to the /chat endpoint as a POST request.
-    The server should return the updated conversation (chatbot's response and user’s input).
-    Update the "Our conversation" panel in real-time.
-    Clear the input field after submission.
+        #sendButton:hover {
+            background-color: #1976D2;
+        }
 
-Example Flow:
-    User enters "What is the capital of France?" and clicks "Ask Chatbot."
-    The input is sent to /chat.
-    The server responds with the chatbot's reply: "The capital of France is Paris."
-    The conversation panel is updated dynamically
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #e8e8e8;
+            border-radius: 8px;
+        }
 
-    Please provide the Thymeleaf template and JavaScript code needed for this integration
-    with the "/chat" endpoint.
--->
+        .instructions {
+            list-style-type: decimal;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AJSD Chatbot</h1>
+    </div>
+
+    <div class="main-content">
+        <div class="left-panel">
+            <h2>Our conversation</h2>
+            <div id="conversationArea" class="conversation-area">
+                <!-- Conversation messages will be dynamically inserted here -->
+            </div>
+            <div class="input-area">
+                <input type="text" id="userInput" placeholder="Type your message here..."
+                       aria-label="Type your message">
+                <button id="sendButton" aria-label="Send message">Ask Chatbot</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <h2>About AJSD Chatbot</h2>
+            <p>Welcome to AJSD Chatbot! Here's how to interact:</p>
+            <ul class="instructions">
+                <li>Type 'teach' to begin</li>
+                <li>Type 'clear' to reset</li>
+                <li>Type 'another country name or put a space after the country name' when a valid country name is not understood</li>
+                <li>Try using the rest or use the term 'teach' to try from beginning</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>By using this chatbot, you indemnify the creators from all legal action. Please remember that AJSD Chatbot can make mistakes.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const conversationArea = document.getElementById('conversationArea');
+            const userInput = document.getElementById('userInput');
+            const sendButton = document.getElementById('sendButton');
+
+            function addMessage(text, isBot) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${isBot ? 'bot-message' : 'user-message'}`;
+                messageDiv.textContent = isBot ? `Chatbot says: ${text}` : `You requested: ${text}`;
+                conversationArea.appendChild(messageDiv);
+                conversationArea.scrollTop = conversationArea.scrollHeight;
+            }
+
+            async function sendMessage() {
+                const message = userInput.value.trim();
+                if (!message) return;
+
+                // Add user message to conversation
+                addMessage(message, false);
+
+                try {
+                    const response = await fetch('/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: message })
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    // Add bot response to conversation
+                    const botResponse = data.response.replace(/\\n/g, '\n');
+                    addMessage(botResponse, true);
+                } catch (error) {
+                    console.error('Error:', error);
+                    addMessage('Sorry, there was an error processing your request.', true);
+                }
+
+                // Clear input field
+                userInput.value = '';
+            }
+
+            // Event listeners
+            sendButton.addEventListener('click', sendMessage);
+            userInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

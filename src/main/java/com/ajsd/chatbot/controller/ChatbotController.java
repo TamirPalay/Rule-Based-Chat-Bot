@@ -62,6 +62,7 @@ public class ChatbotController {
              *          to the value returned by the processUserInput method of the RuleBasedEngine class.
              *          The method should be called with the message and context as arguments.
              **/
+            response = ruleBasedEngine.processUserInput(message, context);
 
 
             return  response;
